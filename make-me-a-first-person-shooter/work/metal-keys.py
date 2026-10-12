@@ -1,0 +1,17 @@
+from pathlib import Path
+p=Path('outputs/index.html');s=p.read_text(encoding='utf-8-sig');s=s.replace("['O','Gray door'", "['3','Gold door','#e5b849','▥'],['4','Silver door','#bdc8d2','▥'],['5','Platinum door','#d7ceef','▥'],['g','Gold keycard','#e5b849','▰'],['s','Silver keycard','#bdc8d2','▰'],['p','Platinum keycard','#d7ceef','▰'],['O','Gray door'",1);s=s.replace("const doorColors={O:", "const doorColors={'3':{name:'Gold',key:'g',persistent:true,rgb:[.9,.65,.17],hex:'#e5b849'},'4':{name:'Silver',key:'s',persistent:true,rgb:[.66,.75,.84],hex:'#bdc8d2'},'5':{name:'Platinum',key:'p',persistent:true,rgb:[.78,.69,.94],hex:'#d7ceef'},O:",1)
+a=s.index('function defaultTile');s=s[:a]+"const keyInfo=Object.fromEntries(Object.values(doorColors).filter(c=>c.key).map(c=>[c.key,c])),keyTiles=Object.keys(keyInfo),persistentKeys=['g','s','p'];\n"+s[a:]
+s=s.replace("['1','2','O','R','B','Y'", "['1','2','3','4','5','O','R','B','Y'")
+s=s.replace('function validate(l){', 'function validate(l,externalKeys=[]){',1).replace('let owned=new Set(),seen=', 'let owned=new Set(externalKeys),seen=',1)
+s=s.replace("['r','b','y'].includes(tile)", 'keyTiles.includes(tile)',1)
+s=s.replace("['E','X','Z','r','b','y','O','R','B','Y'].includes(t)", "(['E','X','Z'].includes(t)||keyTiles.includes(t)||!!doorColors[t])",1)
+s=s.replace("['H','A','X','r','b','y'].includes(t)", "(['H','A','X'].includes(t)||keyTiles.includes(t))",1)
+s=s.replace("['r','b','y'].includes(p.type)", 'keyTiles.includes(p.type)',1).replace("doorColors[p.type.toUpperCase()].name", 'keyInfo[p.type].name',1)
+s=s.replace("['r','b','y'].includes(o.type)", 'keyTiles.includes(o.type)',1).replace("doorColors[o.type.toUpperCase()].rgb", 'keyInfo[o.type].rgb',1)
+s=s.replace('cards=[...keycards],slot=', 'cards=[...keycards].filter(k=>persistentKeys.includes(k)),slot=',1)
+s=s.replace('keycards=new Set(cards);if(endpoint)', "keycards=new Set(cards);pickups.forEach(p=>{if(keyInfo[p.type]&&!keyInfo[p.type].persistent)p.used=false});if(endpoint)",1)
+s=s.replace("let cardX=w-170;for(let color of Object.values(doorColors).filter(c=>c.key)){", "let cardX=w-215,keyIndex=0;for(let color of Object.values(doorColors).filter(c=>c.key)){",1).replace("cardX,85);cardX+=55}", "cardX+(keyIndex%3)*70,85+Math.floor(keyIndex/3)*19);keyIndex++}",1)
+s=s.replace('let err=validate(s.map);', 'let err=validate(s.map,persistentKeys);',1)
+s=s.replace("return reached.size===w.slots.length?'':'Connect every level to the starting piece.'", "return reached.size===w.slots.length?worldKeyProgression(w):'Connect every level to the starting piece.'",1)
+s=s.replace('Cards are reusable. Gray doors', 'Cards are reusable. Red, blue and yellow stay in their level; gold, silver and platinum travel with you. Gray doors',1)
+p.write_text(s,encoding='utf-8')

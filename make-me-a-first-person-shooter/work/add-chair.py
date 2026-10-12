@@ -1,0 +1,13 @@
+from pathlib import Path
+p=Path('outputs/index.html');s=p.read_text(encoding='utf-8-sig');s=s.replace("['X','Extraction'", "['C','Voxel chair','#dca66e','↑'],['D','Chair east','#dca66e','→'],['G','Chair south','#dca66e','↓'],['I','Chair west','#dca66e','←'],['X','Extraction'",1)
+s=s.replace("const doorColors=", "const chairTiles=['C','D','G','I'];\nconst chairMesh="+Path('work/chair-mesh.json').read_text()+";\nconst doorColors=",1)
+s=s.replace("['1','2','R','B','Y'].includes(world", "['1','2','R','B','Y','C','D','G','I'].includes(world",1)
+s=s.replace("if(['1','2'].includes(t)||(doorColors[t]", "if(['1','2','C','D','G','I'].includes(t)||(doorColors[t]",1)
+s=s.replace("palette.forEach(([id,name,color,icon])=>{", "palette.forEach(([id,name,color,icon])=>{if(['D','G','I'].includes(id))return;",1)
+s=s.replace("let t=(e.buttons===2||e.button===2)?'0':brush;", "let t=(e.buttons===2||e.button===2)?'0':brush;if(t==='C')t=$('chairFacing').value;",1)
+s=s.replace('<h3>MAP SETTINGS</h3>', '<h3>CHAIR FACING</h3><label for="chairFacing">Placement direction</label><select id="chairFacing" style="width:100%;padding:10px;background:#0a1421;color:white;border:1px solid #31445c;border-radius:5px"><option value="C">North ↑</option><option value="D">East →</option><option value="G">South ↓</option><option value="I">West ←</option></select><div class="divider"></div><h3>MAP SETTINGS</h3>',1)
+s=s.replace("function rebuildGeometry(){", "function placeChair(out,x,z,tile){let angle=chairTiles.indexOf(tile)*Math.PI/2,c=Math.cos(angle),s=Math.sin(angle);for(let i=0;i<chairMesh.length;i+=9){let px=chairMesh[i],pz=chairMesh[i+2],nx=chairMesh[i+3],nz=chairMesh[i+5];out.push(x+px*c-pz*s,chairMesh[i+1],z+px*s+pz*c,nx*c-nz*s,chairMesh[i+4],nx*s+nz*c,chairMesh[i+6],chairMesh[i+7],chairMesh[i+8])}}\nfunction rebuildGeometry(){",1)
+s=s.replace("let tile=world[y][x];if(['1','2'].includes(tile))", "let tile=world[y][x];if(chairTiles.includes(tile))placeChair(v,x+.5,y+.5,tile);if(['1','2'].includes(tile))",1)
+s=s.replace('Walls block movement and fire.', 'Walls and chairs block movement and fire.',1)
+p.write_text(s,encoding='utf-8')
+p=Path('outputs/README.md');s=p.read_text(encoding='utf-8');s+='\n## Voxel chair asset\n\nChoose Voxel chair in Level Lab, select its facing direction, and paint tiles. Right-click erases. Chairs use the supplied voxChair.glb mesh and colors, scaled to 1.15 meters tall. Chair tiles block movement and fire and are included in map save, export, and import. Keep walkways clear. The mesh is embedded in index.html for offline use; the original asset is preserved in assets/voxChair.glb.\n';p.write_text(s,encoding='utf-8')

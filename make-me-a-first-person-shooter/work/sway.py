@@ -1,0 +1,9 @@
+from pathlib import Path
+p=Path('outputs/index.html');s=p.read_text(encoding='utf-8-sig');s=s.replace('let keycards=new Set()', 'let cameraMotion={phase:0,strength:0,roll:0,side:0,bob:0};\nlet keycards=new Set()',1);s=s.replace("function initGame(){world=", "function initGame(){cameraMotion={phase:0,strength:0,roll:0,side:0,bob:0};world=")
+s=s.replace('if(canMove(player.x+dx,player.y))', 'let previousX=player.x,previousY=player.y;if(canMove(player.x+dx,player.y))',1)
+s=s.replace('if(player.height===0)player.velocity=0;enemies.forEach', 'if(player.height===0)player.velocity=0;updateCameraSway(dt,Math.hypot(player.x-previousX,player.y-previousY),s);enemies.forEach',1)
+a=s.index('function cameraMatrix()');s=s[:a]+'''function updateCameraSway(dt,distance,strafe){let moving=distance>0.0001&&(player.height||0)<.025,sprinting=keys.ShiftLeft||keys.ShiftRight,target=moving?(sprinting?1.5:1):0,blend=1-Math.exp(-10*dt);cameraMotion.strength+=(target-cameraMotion.strength)*blend;if(moving)cameraMotion.phase+=distance*3.6;let wave=Math.sin(cameraMotion.phase),desiredRoll=wave*.012*cameraMotion.strength+(moving?strafe*.009:0);cameraMotion.roll+=(desiredRoll-cameraMotion.roll)*blend;cameraMotion.side=wave*.012*cameraMotion.strength;cameraMotion.bob=Math.cos(cameraMotion.phase*2)*.020*cameraMotion.strength;}
+''' +s[a:]
+s=s.replace("eye=[player.x,1.05+(player.height||0),player.y];let dot=", "eye=[player.x+right[0]*cameraMotion.side,1.05+(player.height||0)+cameraMotion.bob,player.y+right[2]*cameraMotion.side];let cr=Math.cos(cameraMotion.roll),sr=Math.sin(cameraMotion.roll),oldRight=right.slice();for(let i=0;i<3;i++){right[i]=oldRight[i]*cr+up[i]*sr;up[i]=up[i]*cr-oldRight[i]*sr}let dot=")
+s=s.replace('origin=[player.x,1.05+(player.height||0),player.y]', 'origin=cameraMatrix().eye')
+p.write_text(s,encoding='utf-8')

@@ -1,0 +1,6 @@
+work/*
+!work/check.cjs
+outputs/*
+!outputs/index.html
+!outputs/README.md
+!outputs/assets/

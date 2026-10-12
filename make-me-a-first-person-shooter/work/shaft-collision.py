@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('outputs/index.html');s=p.read_text(encoding='utf-8-sig');a=s.index('function playerBodyHeight()');s=s[:a]+'''function shaftCollision(x,z,r,height){for(let y=Math.floor(z-r);y<=Math.floor(z+r);y++)for(let a=Math.floor(x-r);a<=Math.floor(x+r);a++){let t=world[y]?.[a];if(!['S','Q'].includes(t))continue;for(let [lo,hi]of shaftBoxes(t,a,y)){if(height<=lo[1])continue;let nx=Math.max(lo[0],Math.min(hi[0],x)),nz=Math.max(lo[2],Math.min(hi[2],z));if(Math.hypot(x-nx,z-nz)<r)return true}}return false}
+''' +s[a:];s=s.replace('return fitsHeight(x,y,height)&&!wall', 'return fitsHeight(x,y,height)&&!shaftCollision(x,y,r,height)&&!wall',1);p.write_text(s,encoding='utf-8')

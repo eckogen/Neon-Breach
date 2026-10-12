@@ -1,0 +1,17 @@
+from pathlib import Path
+p=Path('outputs/index.html');s=p.read_text(encoding='utf-8-sig');s=s.replace("['E','Security drone'", "['7','Assault drone','#ff3b35','◈'],['E','Security drone'",1)
+a=s.index('function doorAxis');s=s[:a]+'''function droneConfig(e){return e.kind==='assault'?{health:90,speed:2,stop:1.1,detect:14,range:9,cooldown:.6,damage:12,dodge:2.8}:{health:60,speed:.9,stop:1.8,detect:11,range:7,cooldown:1.4,damage:9,dodge:2.1}}
+''' +s[a:]
+s=s.replace("if(t==='E')enemies.push({x:x+.5,y:y+.5,hp:60,attack:1,", "if(['E','7'].includes(t))enemies.push({x:x+.5,y:y+.5,kind:t==='7'?'assault':'security',hp:t==='7'?90:60,attack:t==='7'?.4:1,",1)
+s=s.replace("t=>t==='E'", "t=>['E','7'].includes(t)")
+s=s.replace("['E','X','Z']", "['E','7','X','Z']")
+s=s.replace("function moveDrone(e,dt,visible){let evasive=", "function moveDrone(e,dt,visible){let stats=droneConfig(e),evasive=",1)
+s=s.replace('*2.1*dt', '*stats.dodge*dt').replace('else if(d>1.8){vx=ux*dt*.9;vy=uy*dt*.9}', 'else if(d>stats.stop){vx=ux*dt*stats.speed;vy=uy*dt*stats.speed}',1)
+s=s.replace("parts.push([e.x,y+.02", "if(e.kind==='assault'){parts.push([e.x-.22,y+.12,e.y,.08,.35,.08,[.75,.08,.05],a],[e.x+.22,y+.12,e.y,.08,.35,.08,[.75,.08,.05],a])}parts.push([e.x,y+.02",1)
+s=s.replace(".24,.32,.24,[.22,.30,.4],a", ".24,.32,.24,e.kind==='assault'?[.35,.09,.08]:[.22,.30,.4],a",1)
+s=s.replace("let d=Math.hypot(player.x-e.x,player.y-e.y);e.attack-=dt;let visible=d<11", "let stats=droneConfig(e),d=Math.hypot(player.x-e.x,player.y-e.y);e.attack-=dt;let visible=d<stats.detect",1)
+s=s.replace('if(d<7&&e.attack<=0){e.attack=1.4;', 'if(d<stats.range&&e.attack<=0){e.attack=stats.cooldown;',1).replace('player.hp-9','player.hp-stats.damage',1)
+p.write_text(s,encoding='utf-8')
+p=Path('work/check.cjs');s=p.read_text(encoding='utf-8-sig');marker="console.log('PASS: WebGL";insert="""worldSession=null;let assaultLevel={name:'Assault test',grid:rows.map(r=>r.split(''))};assaultLevel.grid[1][6]='7';setLevel(assaultLevel);initGame();check(enemies.some(e=>e.kind==='assault'&&e.hp===90),'Assault drone spawns with armor');check(total===7&&validate(assaultLevel)==='','New enemy included in objectives and validation');player.x=3.5;player.y=1.5;let regular={x:6.5,y:1.5,hp:60},assault={x:6.5,y:1.5,hp:90,kind:'assault'};moveDrone(regular,.1,true);moveDrone(assault,.1,true);check(assault.x<regular.x,'Assault drone closes faster');check(droneConfig(assault).cooldown<droneConfig(regular).cooldown&&droneConfig(assault).damage>droneConfig(regular).damage,'Assault fires faster and harder');enemies=[{x:5.5,y:1.5,hp:90,attack:100,kind:'assault',hit:0}];state='playing';keys={};for(let i=0;i<3;i++){shot=0;weaponMotion.pitchKick=0;fire()}check(enemies[0].hp===0&&kills===1&&debris.length===16,'Assault survives two shots and fragments on third');render();console.log('PASS: assault drone spawn, objectives, speed, firepower, armor and fragmentation');
+""";s=s.replace(marker,insert+marker,1);p.write_text(s,encoding='utf-8')
+p=Path('outputs/README.md');s=p.read_text(encoding='utf-8');s+='\n## Assault drone\n\nPlace Assault drone in Level Lab for a tougher encounter. It has 90 health, moves at 2 meters/second, detects players within 14 meters, and fires every 0.6 seconds for 12 damage on a hit. It closes to 1.1 meters, dodges faster after being hit, and breaks into 16 physics pieces when destroyed. It follows the same visibility-based accuracy rules as the security drone.\n';p.write_text(s,encoding='utf-8')
