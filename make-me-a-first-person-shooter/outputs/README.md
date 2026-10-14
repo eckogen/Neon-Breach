@@ -120,3 +120,5 @@ To patrol: choose a route or enter a new route name, select Loop, Back and forth
 Rules, names, nodes and assignments are included in map saves/exports and World Lab snapshots. Mission flags persist between linked regions; each region remembers its completed objectives, used interactions and patrol state. Restart clears mission progress.
 
 Patrol nodes default to a 0.25-second wait. Existing nodes retain their authored waits. Drones finish the approach inside the goal cell, discard stale paths at node changes, and skip unreachable nodes on looping/reversing routes. Guard routes hold position when blocked.
+
+Objective switches and sabotage targets can use any current prop mesh: Voxel chair, File cabinet, or Arcade cabinet. Select the named object in Objectives, choose its appearance and facing, then Apply appearance. Switches still activate with E; targets still take damage and satisfy their named destruction rules. Appearance settings persist in map JSON and linked-region snapshots.
