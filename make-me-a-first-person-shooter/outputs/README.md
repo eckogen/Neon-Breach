@@ -21,7 +21,7 @@ Paint walls, drones, medkits, ammo crates, and an extraction. Name your map and 
 
 The Load a map dropdown switches between The Relay and any saved maps. Save in browser updates the selected saved map or creates a new entry. Save as new map creates a separate copy. Maps are stored in this browser's local storage; an older single-map save is migrated automatically. Switching with unsaved edits asks before discarding them. Incomplete draft maps can also be saved. Export JSON downloads a portable map. To import, open the JSON file in a text editor, copy its contents, and paste into Import JSON. Use Export for durable backups: browser storage depends on browser settings and the file's location.
 
-Desktop keyboard and mouse are required. This is a single-player WebGL 3D shooter with a 20 by 20 tile editor.
+Desktop keyboard and mouse are required. This is a single-player WebGL 3D shooter with a tile editor supporting arenas up to 80 by 80 tiles.
 
 ## Colored doors and keycards
 
@@ -102,11 +102,11 @@ The Walls tab includes office plaster and walnut panels, industrial steel and ha
 
 Cybergothic walls use pointed metal frames: Obsidian reliquary has warm brass trim and amber inset lights; Neon lancet has divided cyan/violet panels. Frame and panel surfaces are separated in depth.
 
-Choose 20 × 20, 20 × 40, 40 × 20, or 40 × 40 (width × height) in the New map size selector, then click New empty map. Existing maps retain their dimensions. Rectangular and large maps work with save/load, JSON and World Lab. Border cells can be repainted using any full-height wall in the Walls tab, but cannot be erased or replaced with half walls, doors, glass, or props.
+Choose any width/height combination of 40, 60, and 80 tiles in the New map size selector, then click New empty map. Existing 20/30/40-tile maps remain compatible and retain their dimensions. Rectangular and large maps work with save/load, JSON and World Lab. Border cells can be repainted using any full-height wall in the Walls tab, but cannot be erased or replaced with half walls, doors, glass, or props.
 
 Hazards tab: Sweeping laser ↔ spans east/west walls and slides north/south; Sweeping laser ↕ spans north/south walls and slides east/west. Place in a clear corridor with full-height walls on both beam ends. Emitters sweep the continuous matching corridor at 1.2 m/s, reversing at its ends, at 0.95 m height. Contact deals 15 damage with a 0.75-second cooldown. Crouch/crawl underneath or jump over. Obstructed placements without two wall anchors do not activate. Laser motion persists when revisiting a World Lab region.
 
-Map sizes now support every width/height combination of 20, 30, and 40 tiles: nine presets including 20 × 30, 30 × 20, 30 × 30, 30 × 40, and 40 × 30.
+New map sizes support every width/height combination of 40, 60, and 80 tiles: nine presets from 40 × 40 through 80 × 80.
 
 
 ## Objectives and enemy patrols
