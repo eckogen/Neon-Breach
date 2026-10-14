@@ -107,3 +107,14 @@ Choose 20 × 20, 20 × 40, 40 × 20, or 40 × 40 (width × height) in the New ma
 Hazards tab: Sweeping laser ↔ spans east/west walls and slides north/south; Sweeping laser ↕ spans north/south walls and slides east/west. Place in a clear corridor with full-height walls on both beam ends. Emitters sweep the continuous matching corridor at 1.2 m/s, reversing at its ends, at 0.95 m height. Contact deals 15 damage with a 0.75-second cooldown. Crouch/crawl underneath or jump over. Obstructed placements without two wall anchors do not activate. Laser motion persists when revisiting a World Lab region.
 
 Map sizes now support every width/height combination of 20, 30, and 40 tiles: nine presets including 20 × 30, 30 × 20, 30 × 30, 30 × 40, and 40 × 30.
+
+
+## Objectives and enemy patrols
+
+Open **Objectives & patrols** in the right Level Lab panel. Place Objective switches, Data terminals, and Sabotage targets from Mission & gear. Select an object and rename its ID (letters/numbers/hyphens); press E near switches/terminals, and shoot sabotage targets. Coordinates in rules are zero-based editor cells, X,Y. Enemy spawns can also be named.
+
+Create an objective with a title, AND/OR/ordered conditions, and actions, one per line. Conditions: `activate:power`, `kill:core`, `key:g`, `flag:powered`, `allDrones`, `timer:30`, `reach:8,5`. Actions: `open:10,5`, `disableLasers`, `extraction`, `flag:powered`, `route:8,8:route-ID`, or `alarm:route-ID` to redirect all enemies. Route IDs appear as the value in exported JSON. Ordered activation/destruction conditions must occur in the specified order. Optional objectives do not block extraction. Maps with objectives require all mandatory objectives rather than all drone kills; an extraction action, when present, must also fire. Maps without rules retain the original drone-clearing objective.
+
+To patrol: choose a route or enter a new route name, select Loop, Back and forth, or Guard, and click Place nodes on map. Click floor cells to append nodes with the chosen wait duration. Click Finish nodes, then select an enemy and Assign selected route. Enemies follow walkable paths between nodes, wait and rotate at stops, interrupt patrols to engage, investigate nearby gunfire for four seconds, and return after losing the player (tactical drones first finish their last-seen search). Guard routes hold their first node. Gray doors can be opened during patrols; locked doors remain barriers. Objective actions can change routes or rally enemies to a route.
+
+Rules, names, nodes and assignments are included in map saves/exports and World Lab snapshots. Mission flags persist between linked regions; each region remembers its completed objectives, used interactions and patrol state. Restart clears mission progress.
