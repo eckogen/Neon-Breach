@@ -65,7 +65,7 @@ Save world in browser keeps the layout, connections and embedded level snapshots
 
 ## Crouching, crawling and crawl shafts
 
-Hold Z to crouch. Press C to toggle crawling. Crouching lowers the camera and moves at 1.5 meters/second; crawling lowers it further and moves at 0.85 meters/second. Standing moves at 2.7, or 4.1 while sprinting. Jumping and sprinting require standing.
+Hold Q to crouch. Press C to toggle crawling. Crouching lowers the camera and moves at 1.5 meters/second; crawling lowers it further and moves at 0.85 meters/second. Standing moves at 2.7, or 4.1 while sprinting. Jumping and sprinting require standing.
 
 Level Lab includes Crawl shaft ↔ and Crawl shaft ↕ tiles. Paint aligned runs to build low tunnels. Their 0.55-meter clearance requires crawling; standing players, crouching players and drones cannot enter. Sidewalls prevent lateral entry, and the roof provides cover. Releasing crawl inside a shaft keeps you low until you exit, then you stand automatically. Shafts persist in saved maps and world pieces.
 
