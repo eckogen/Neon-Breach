@@ -108,6 +108,12 @@ Hazards tab: Sweeping laser ↔ spans east/west walls and slides north/south; Sw
 
 New map sizes support every width/height combination of 40, 60, and 80 tiles: nine presets from 40 × 40 through 80 × 80.
 
+## Cityscape and boundary windows
+
+Every level is surrounded by a procedural nighttime city with lit 3D skyscrapers against a deep-blue cityscape skybox. The skyline sits outside the playable grid and is visual only.
+
+Choose City window wall from the Walls tab and paint it over a perimeter wall. These sealed floor-to-ceiling windows expose the skyline while continuing to block movement, bullets, and enemy sight. City windows are restricted to the outer boundary and cannot be placed inside the level.
+
 
 ## Objectives and enemy patrols
 
