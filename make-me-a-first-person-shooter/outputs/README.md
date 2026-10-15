@@ -44,6 +44,7 @@ Drones that survive a rifle hit enter evasive mode for three seconds. They straf
 Level Lab includes Glass pane | and Glass pane — for the two orientations. Panes are transparent, block walking and bullets, and shatter from a single rifle shot or when sprinting through them. Sprinting through each intact pane costs 10 health once. A shot used to shatter glass does not continue into a target behind it. Glass shards tumble, bounce and fade away. Breaking panes affects the current mission only; restarting restores them.
 
 Gray doors can be placed in Level Lab and opened with E. They require no keycard and block movement and shots until activated. They use the same opening animation and reset on mission restart.
+After opening, gray doors wait until the doorway is clear, then close automatically behind the player. A closing door reverses if the player or a drone enters its doorway. Keyed doors remain open.
 
 ## File cabinet asset
 
