@@ -104,6 +104,8 @@ Cybergothic walls use pointed metal frames: Obsidian reliquary has warm brass tr
 
 Choose any width/height combination of 40, 60, and 80 tiles in the New map size selector, then click New empty map. Existing 20/30/40-tile maps remain compatible and retain their dimensions. Rectangular and large maps work with save/load, JSON and World Lab. Border cells can be repainted using any full-height wall in the Walls tab, but cannot be erased or replaced with half walls, doors, glass, or props.
 
+Use the −, Reset zoom, and + controls above the Level Lab grid to zoom from 50% to 300% in 25% steps. You can also hold Ctrl (or Command on macOS) while using the mouse wheel over the map. Enlarged maps remain inside a scrollable editor viewport.
+
 Hazards tab: Sweeping laser ↔ spans east/west walls and slides north/south; Sweeping laser ↕ spans north/south walls and slides east/west. Place in a clear corridor with full-height walls on both beam ends. Emitters sweep the continuous matching corridor at 1.2 m/s, reversing at its ends, at 0.95 m height. Contact deals 15 damage with a 0.75-second cooldown. Crouch/crawl underneath or jump over. Obstructed placements without two wall anchors do not activate. Laser motion persists when revisiting a World Lab region.
 
 New map sizes support every width/height combination of 40, 60, and 80 tiles: nine presets from 40 × 40 through 80 × 80.
