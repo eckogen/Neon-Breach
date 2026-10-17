@@ -1,3 +1,4 @@
+import base64
 import json
 import struct
 from pathlib import Path
@@ -47,6 +48,9 @@ indices = [value[0] for value in accessor(document, binary, primitive["indices"]
 image_view = document["bufferViews"][document["images"][0]["bufferView"]]
 image_start = image_view.get("byteOffset", 0)
 TEXTURE_OUTPUT.write_bytes(binary[image_start : image_start + image_view["byteLength"]])
+texture_uri = "data:image/jpeg;base64," + base64.b64encode(
+    binary[image_start : image_start + image_view["byteLength"]]
+).decode("ascii")
 
 
 # Preserve every source vertex and UV seam. The earlier clustered conversion merged
@@ -66,7 +70,8 @@ def number(value):
 payload = ",".join(number(value) for value in triangles)
 OUTPUT.write_text(
     "// Generated from the supplied male-office-worker_1.glb. Preserve the source bundle beside this file.\n"
-    f"const officeNpcMesh=[{payload}];\n",
+    f"const officeNpcMesh=[{payload}];\n"
+    f"const officeNpcTexture={json.dumps(texture_uri)};\n",
     encoding="utf-8",
 )
 print(f"Generated {len(triangles) // 24:,} textured triangles ({OUTPUT.stat().st_size:,} bytes)")
