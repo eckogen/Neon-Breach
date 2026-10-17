@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const html=fs.readFileSync('outputs/index.html','utf8'),officeNpcSource=fs.readFileSync('outputs/assets/office-worker-mesh.js','utf8');
+const html=fs.readFileSync('outputs/index.html','utf8'),officeNpcSource=fs.readFileSync('outputs/assets/office-worker-mesh.js','utf8'),femaleOfficeNpcSource=fs.readFileSync('outputs/assets/female-office-worker-mesh.js','utf8');
 const elements=new Map();
 const glMock=new Proxy({getShaderParameter(){return true},getProgramParameter(){return true},getAttribLocation(){return 0}}, {get(t,p){return t[p]||(()=>{})}});
 const gradient={addColorStop(){}};
@@ -7,7 +7,7 @@ const context=new Proxy({createLinearGradient(){return gradient}}, {get(t,p){ret
 function element(id){if(!elements.has(id))elements.set(id,{id,style:{},classList:{add(){},remove(){},toggle(){},contains(){return false}},addEventListener(){},addEventListener(){},parentNode:{insertBefore(){}},getContext(type){return type==='webgl'?glMock:context},getBoundingClientRect(){return{width:1000,height:600,left:0,top:0}},append(){},setAttribute(){},click(){},showModal(){this.open=true},close(){this.open=false},setPointerCapture(){},value:'',textContent:'',tagName:'BODY'});return elements.get(id)}
 const storage=new Map();const sandbox={localStorage:{getItem(k){return storage.get(k)||null},setItem(k,v){storage.set(k,v)}},console,Math,Set,JSON,Blob,URL,setTimeout,clearTimeout,requestAnimationFrame(){},document:{getElementById:element,createElement:element,querySelectorAll(){return[]},addEventListener(){},activeElement:{tagName:'BODY'},exitPointerLock(){}},window:{addEventListener(){}}};
 vm.createContext(sandbox);
-vm.runInContext(officeNpcSource+'\n'+html.match(/<script>([\s\S]*?)<\/script>/)[1]+`
+vm.runInContext(officeNpcSource+'\n'+femaleOfficeNpcSource+'\n'+html.match(/<script>([\s\S]*?)<\/script>/)[1]+`
 function check(v,m){if(!v)throw Error(m)}
 check(validate(level)==='', 'Default map is valid');
 check(total===6 && player.hp===100 && ammo===24, 'Initial mission state');
