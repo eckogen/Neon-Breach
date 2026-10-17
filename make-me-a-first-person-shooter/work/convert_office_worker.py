@@ -1,14 +1,12 @@
-import io
 import json
 import struct
 from pathlib import Path
-
-from PIL import Image
 
 
 ROOT = Path(__file__).parents[1]
 GLB = ROOT / "outputs/assets/male-office-worker/characters/male-office-worker_1/male-office-worker_1.glb"
 OUTPUT = ROOT / "outputs/assets/office-worker-mesh.js"
+TEXTURE_OUTPUT = ROOT / "outputs/assets/office-worker-texture.jpg"
 
 
 def load_glb(path):
@@ -48,28 +46,13 @@ indices = [value[0] for value in accessor(document, binary, primitive["indices"]
 
 image_view = document["bufferViews"][document["images"][0]["bufferView"]]
 image_start = image_view.get("byteOffset", 0)
-texture = Image.open(io.BytesIO(binary[image_start : image_start + image_view["byteLength"]])).convert("RGB")
-
-
-def texture_color(uv):
-    u = uv[0] % 1
-    v = uv[1] % 1
-    px = u * (texture.width - 1)
-    py = (1 - v) * (texture.height - 1)
-    x0, y0 = int(px), int(py)
-    x1, y1 = min(texture.width - 1, x0 + 1), min(texture.height - 1, y0 + 1)
-    tx, ty = px - x0, py - y0
-    samples = [texture.getpixel((x0, y0)), texture.getpixel((x1, y0)), texture.getpixel((x0, y1)), texture.getpixel((x1, y1))]
-    return tuple(
-        ((samples[0][channel] * (1 - tx) + samples[1][channel] * tx) * (1 - ty)
-         + (samples[2][channel] * (1 - tx) + samples[3][channel] * tx) * ty) / 255
-        for channel in range(3)
-    )
+TEXTURE_OUTPUT.write_bytes(binary[image_start : image_start + image_view["byteLength"]])
 
 
 # Preserve every source vertex and UV seam. The earlier clustered conversion merged
 # vertices that shared a position but belonged to unrelated texture-atlas islands.
-vertices = [list(position) + list(normal) + list(texture_color(uv)) for position, normal, uv in zip(positions, normals, uvs)]
+# Preserve the actual UVs so WebGL can sample the source texture per pixel.
+vertices = [list(position) + list(normal) + list(uv) for position, normal, uv in zip(positions, normals, uvs)]
 triangles = [value for index in indices for value in vertices[index]]
 
 
@@ -86,4 +69,4 @@ OUTPUT.write_text(
     f"const officeNpcMesh=[{payload}];\n",
     encoding="utf-8",
 )
-print(f"Generated {len(triangles) // 27:,} UV-preserving triangles ({OUTPUT.stat().st_size:,} bytes)")
+print(f"Generated {len(triangles) // 24:,} textured triangles ({OUTPUT.stat().st_size:,} bytes)")
