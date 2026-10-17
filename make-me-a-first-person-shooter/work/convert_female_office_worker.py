@@ -7,7 +7,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).parents[1]
-GLB = ROOT / "outputs/assets/female-office-worker/characters/office-employee2/office-employee2.glb"
+GLB = ROOT / "outputs/assets/female-office-worker/characters/female-office-worker/female-office-worker.glb"
 OUTPUT = ROOT / "outputs/assets/female-office-worker-mesh.js"
 
 
@@ -47,37 +47,10 @@ normals = accessor(document, binary, primitive["attributes"]["NORMAL"]).astype(n
 uvs = accessor(document, binary, primitive["attributes"]["TEXCOORD_0"]).astype(np.float64)
 faces = accessor(document, binary, primitive["indices"]).reshape(-1, 3)
 
-# The supplied scan has nearly two million triangles. Cluster nearby vertices while
-# retaining a coarse UV key so atlas seams remain separate and the NPC is practical
-# for a real-time browser game.
-minimum, maximum = positions.min(axis=0), positions.max(axis=0)
-span = np.maximum(maximum - minimum, 1e-9)
-position_key = np.floor((positions - minimum) / span * 68).astype(np.int32)
-uv_key = np.floor(uvs * 64).astype(np.int32)
-keys = np.column_stack((position_key, uv_key))
-_, inverse = np.unique(keys, axis=0, return_inverse=True)
-count = np.bincount(inverse)
-
-
-def averaged(values):
-    return np.column_stack([np.bincount(inverse, weights=values[:, i]) / count for i in range(values.shape[1])])
-
-
-cluster_positions = averaged(positions)
-cluster_normals = averaged(normals)
-cluster_normals /= np.maximum(np.linalg.norm(cluster_normals, axis=1, keepdims=True), 1e-9)
-cluster_uvs = averaged(uvs)
-cluster_faces = inverse[faces]
-cluster_faces = cluster_faces[
-    (cluster_faces[:, 0] != cluster_faces[:, 1])
-    & (cluster_faces[:, 1] != cluster_faces[:, 2])
-    & (cluster_faces[:, 2] != cluster_faces[:, 0])
-]
-_, unique_face_indices = np.unique(np.sort(cluster_faces, axis=1), axis=0, return_index=True)
-cluster_faces = cluster_faces[np.sort(unique_face_indices)]
-
-vertices = np.column_stack((cluster_positions, cluster_normals, cluster_uvs)).astype(np.float32)
-triangles = vertices[cluster_faces].reshape(-1)
+# This replacement asset is already game-optimized, so preserve every supplied
+# triangle and UV seam rather than applying the scan decimation used previously.
+vertices = np.column_stack((positions, normals, uvs)).astype(np.float32)
+triangles = vertices[faces].reshape(-1)
 
 image = document["images"][0]
 image_view = document["bufferViews"][image["bufferView"]]
@@ -102,6 +75,6 @@ OUTPUT.write_text(
     encoding="utf-8",
 )
 print(
-    f"Reduced {len(faces):,} source triangles to {len(cluster_faces):,} textured triangles "
+    f"Generated {len(faces):,} textured triangles "
     f"({OUTPUT.stat().st_size:,} bytes)"
 )

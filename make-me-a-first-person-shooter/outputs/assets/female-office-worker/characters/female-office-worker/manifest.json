@@ -1,8 +1,8 @@
 {
   "version": 9,
-  "createdAt": "2026-10-17T17:59:35.723Z",
-  "packageName": "office-employee2",
-  "characterDir": "characters/office-employee2/",
+  "createdAt": "2026-10-17T18:05:16.595Z",
+  "packageName": "female-office-worker",
+  "characterDir": "characters/female-office-worker/",
   "bundleMode": "combined",
   "units": {
     "units": "m",
@@ -12,13 +12,13 @@
   },
   "parts": [
     {
-      "file": "office-employee2.glb",
-      "name": "office-employee2",
+      "file": "female-office-worker.glb",
+      "name": "female-office-worker",
       "type": "combined"
     }
   ],
   "files": {
-    "character": "office-employee2.glb",
+    "character": "female-office-worker.glb",
     "body": null,
     "animationClip": "animation.clip.json",
     "animations": [
@@ -115,7 +115,7 @@
     "agentInstructions": null
   },
   "skeleton": {
-    "boneCount": 41,
+    "boneCount": 24,
     "breastBones": []
   },
   "animation": {
@@ -132,8 +132,8 @@
       "import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'",
       "import { CharacterController } from './SorceressCharacterRuntime.js'",
       "import { setupCharacterPhysics } from './CharacterPhysics.js'",
-      "const CHAR_DIR = './characters/office-employee2/'",
-      "const gltf = await new GLTFLoader().loadAsync(CHAR_DIR + 'office-employee2.glb')",
+      "const CHAR_DIR = './characters/female-office-worker/'",
+      "const gltf = await new GLTFLoader().loadAsync(CHAR_DIR + 'female-office-worker.glb')",
       "// Load every clip in the character folder (see manifest.files.animations):",
       "const manifest = await fetch(CHAR_DIR + 'manifest.json').then(r => r.json())",
       "const clips = {}",
@@ -146,6 +146,6 @@
       "const charPhysics = setupCharacterPhysics(gltf.scene, { hair: physics.hair, cloth: physics.cloth })",
       "// per frame: controller.update(deltaSeconds, { forward, back, left, right, sprint, jump, cameraForward })"
     ],
-    "notes": "RUNTIME NOT INCLUDED: this is a CHARACTER + ANIMATIONS bundle for a project that already has the Sorceress runtime files (SorceressCharacterRuntime.js, CharacterPhysics.js, humanoidCharacter.js, …) and AGENT_INSTRUCTIONS.md from a previously downloaded full Three.js Package. Drop this bundle's characters/office-employee2/ folder into the project's existing characters/ folder (next to the other characters) and wire it exactly the same way — the quickstart below and the original AGENT_INSTRUCTIONS.md apply unchanged. This is a COMBINED export: one office-employee2.glb with the body + all accessories on a single skeleton. Assign the clip to any locomotion slots (idle/walk/run/jump) or generate more clips and parse them the same way."
+    "notes": "RUNTIME NOT INCLUDED: this is a CHARACTER + ANIMATIONS bundle for a project that already has the Sorceress runtime files (SorceressCharacterRuntime.js, CharacterPhysics.js, humanoidCharacter.js, …) and AGENT_INSTRUCTIONS.md from a previously downloaded full Three.js Package. Drop this bundle's characters/female-office-worker/ folder into the project's existing characters/ folder (next to the other characters) and wire it exactly the same way — the quickstart below and the original AGENT_INSTRUCTIONS.md apply unchanged. This is a COMBINED export: one female-office-worker.glb with the body + all accessories on a single skeleton. Assign the clip to any locomotion slots (idle/walk/run/jump) or generate more clips and parse them the same way."
   }
 }
