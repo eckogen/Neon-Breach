@@ -1,9 +1,11 @@
 import base64
+import io
 import json
 import struct
 from pathlib import Path
 
 import numpy as np
+from PIL import Image
 
 
 ROOT = Path(__file__).parents[1]
@@ -56,8 +58,9 @@ image = document["images"][0]
 image_view = document["bufferViews"][image["bufferView"]]
 image_start = image_view.get("byteOffset", 0)
 image_bytes = bytes(binary[image_start : image_start + image_view["byteLength"]])
-mime = image.get("mimeType", "image/png")
-texture_uri = f"data:{mime};base64," + base64.b64encode(image_bytes).decode("ascii")
+texture = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+texture.thumbnail((512, 512), Image.Resampling.LANCZOS)
+texture_pixels = base64.b64encode(texture.tobytes()).decode("ascii")
 
 
 def number(value):
@@ -71,7 +74,7 @@ payload = ",".join(number(value) for value in triangles)
 OUTPUT.write_text(
     "// Generated from the supplied office-employee2.glb; source bundle is preserved beside this file.\n"
     f"const femaleOfficeNpcMesh=[{payload}];\n"
-    f"const femaleOfficeNpcTexture={json.dumps(texture_uri)};\n",
+    f"const femaleOfficeNpcTexturePixels={json.dumps(texture_pixels)},femaleOfficeNpcTextureSize=[{texture.width},{texture.height}];\n",
     encoding="utf-8",
 )
 print(
