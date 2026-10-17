@@ -117,6 +117,10 @@ Every level is surrounded by a procedural nighttime city with lit 3D skyscrapers
 
 Choose City window wall from the Walls tab and paint it over a perimeter wall. These sealed floor-to-ceiling windows expose the skyline while continuing to block movement, bullets, and enemy sight. City windows are restricted to the outer boundary and cannot be placed inside the level.
 
+## Office worker NPC
+
+Choose Office worker NPC from the Characters tab in Level Lab and paint a civilian into the level. The supplied 1.8-meter character mesh and texture are converted into the native WebGL renderer while the original GLB and animation bundle remain under `outputs/assets/male-office-worker`. Office workers block movement, are non-combatants, and stop bullets without taking damage. Press E nearby to speak with them.
+
 
 ## Objectives and enemy patrols
 

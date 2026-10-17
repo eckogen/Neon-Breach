@@ -1,5 +1,5 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const html=fs.readFileSync('outputs/index.html','utf8');
+const html=fs.readFileSync('outputs/index.html','utf8'),officeNpcSource=fs.readFileSync('outputs/assets/office-worker-mesh.js','utf8');
 const elements=new Map();
 const glMock=new Proxy({getShaderParameter(){return true},getProgramParameter(){return true},getAttribLocation(){return 0}}, {get(t,p){return t[p]||(()=>{})}});
 const gradient={addColorStop(){}};
@@ -7,7 +7,7 @@ const context=new Proxy({createLinearGradient(){return gradient}}, {get(t,p){ret
 function element(id){if(!elements.has(id))elements.set(id,{id,style:{},classList:{add(){},remove(){},toggle(){},contains(){return false}},addEventListener(){},addEventListener(){},parentNode:{insertBefore(){}},getContext(type){return type==='webgl'?glMock:context},getBoundingClientRect(){return{width:1000,height:600,left:0,top:0}},append(){},setAttribute(){},click(){},showModal(){this.open=true},close(){this.open=false},setPointerCapture(){},value:'',textContent:'',tagName:'BODY'});return elements.get(id)}
 const storage=new Map();const sandbox={localStorage:{getItem(k){return storage.get(k)||null},setItem(k,v){storage.set(k,v)}},console,Math,Set,JSON,Blob,URL,setTimeout,clearTimeout,requestAnimationFrame(){},document:{getElementById:element,createElement:element,querySelectorAll(){return[]},addEventListener(){},activeElement:{tagName:'BODY'},exitPointerLock(){}},window:{addEventListener(){}}};
 vm.createContext(sandbox);
-vm.runInContext(html.match(/<script>([\s\S]*?)<\/script>/)[1]+`
+vm.runInContext(officeNpcSource+'\n'+html.match(/<script>([\s\S]*?)<\/script>/)[1]+`
 function check(v,m){if(!v)throw Error(m)}
 check(validate(level)==='', 'Default map is valid');
 check(total===6 && player.hp===100 && ammo===24, 'Initial mission state');
@@ -22,6 +22,7 @@ initGame();state='playing';const old=player.x;keys={KeyW:true};update(.1);check(
 player.hp=40;pickups=[{x:player.x,y:player.y,type:'H'}];update(.01);check(player.hp===75&&pickups[0].used,'Medkit restores health once');
 kills=total;pickups=[{x:player.x,y:player.y,type:'X'}];update(.01);check(state==='won','Unlocked exit completes mission');
 initGame();state='playing';player.hp=0;update(.01);check(state==='dead','Zero health ends mission');
+let npcLevel=emptyLevel(20,20);npcLevel.grid[3][3]='^';check(validate(npcLevel)==='','Office worker NPC validates in a reachable level');setLevel(npcLevel);initGame();state='playing';check(npcs.length===1&&officeNpcMesh.length>100000,'Supplied office worker mesh initializes as an NPC');check(wall(3.5,3.5)&&!canMove(3.5,3.5),'Office worker NPC blocks movement at body radius');player.x=2.5;player.y=3.5;player.angle=0;check(useNpc()&&doorMessage.includes('Office worker'),'Office worker supports nearby conversation');shot=0;ammo=24;weaponMotion.pitchKick=0;fire();check(ammo===23&&doorMessage.includes("Don't shoot")&&!('hp' in npcs[0]),'Office worker blocks shots without taking combat damage');let npcMesh=[];placeOfficeNpc(npcMesh,3.5,3.5);check(npcMesh.length===officeNpcMesh.length&&npcMesh.every(Number.isFinite),'Office worker native mesh renders with finite geometry');setLevel({version:1,name:'The Relay',grid:rows.map(r=>r.split(''))});console.log('PASS: supplied office worker NPC placement, collision, conversation, shot response and rendering');
 initGame();state='playing';mouseLook({target:canvas,clientX:100,clientY:100});mouseLook({target:canvas,clientX:140,clientY:80});check(Math.abs(player.angle-.2)<.0001&&Math.abs(player.pitch-.1)<.0001,'Unlocked mouse turns and pitches camera');
 mouseLook({target:{},clientX:500,clientY:500});const before=player.angle;mouseLook({target:canvas,clientX:500,clientY:500});check(player.angle===before,'Re-entry avoids camera jumps');
 document.pointerLockElement=canvas;mouseLook({movementX:20,movementY:10});check(Math.abs(player.angle-.3)<.0001&&Math.abs(player.pitch-.05)<.0001,'Captured mouse controls camera');

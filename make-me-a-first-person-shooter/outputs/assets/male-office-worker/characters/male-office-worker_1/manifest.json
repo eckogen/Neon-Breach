@@ -1,0 +1,151 @@
+{
+  "version": 9,
+  "createdAt": "2026-10-17T06:10:52.743Z",
+  "packageName": "male-office-worker_1",
+  "characterDir": "characters/male-office-worker_1/",
+  "bundleMode": "combined",
+  "units": {
+    "units": "m",
+    "rawHeight": 1.8,
+    "suggestedScale": 1,
+    "note": "GLB geometry is in meters — no scaling needed; controller speeds are m/s as-is."
+  },
+  "parts": [
+    {
+      "file": "male-office-worker_1.glb",
+      "name": "male-office-worker_1",
+      "type": "combined"
+    }
+  ],
+  "files": {
+    "character": "male-office-worker_1.glb",
+    "body": null,
+    "animationClip": "animation.clip.json",
+    "animations": [
+      {
+        "file": "animations/walking_in_place.clip.json",
+        "name": "walking in place",
+        "duration": 3,
+        "id": "anim-1792058216741-0-wcj7",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/running_straight.clip.json",
+        "name": "running straight",
+        "duration": 3,
+        "id": "anim-1792058459118-0-f75a",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/cowering.clip.json",
+        "name": "cowering",
+        "duration": 3,
+        "id": "anim-1792058706462-0-ox4u",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/cowering_2.clip.json",
+        "name": "cowering",
+        "duration": 3,
+        "id": "anim-1792058760313-0-15gd",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/moving_forward_cowering.clip.json",
+        "name": "moving forward cowering",
+        "duration": 3,
+        "id": "anim-1792058939499-0-z9ah",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/moving_forward_crawling1_1.clip.json",
+        "name": "moving forward crawling1_1",
+        "duration": 3,
+        "id": "anim-1792059214930-0-6esd",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/moving_forward_crawling1_2.clip.json",
+        "name": "moving forward crawling1_2",
+        "duration": 1.6666666666666667,
+        "id": "7aaf2658-77aa-483a-9c40-84e066ad5582",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/firing_an_assault_rifle.clip.json",
+        "name": "firing an assault rifle",
+        "duration": 3,
+        "id": "anim-1792059681530-0-ui67",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      },
+      {
+        "file": "animations/running.clip.json",
+        "name": "running",
+        "duration": 1.5,
+        "id": "anim-1792058408009-0-ruft",
+        "fps": 30,
+        "segments": null,
+        "inPlace": false
+      }
+    ],
+    "driveProfiles": [],
+    "physicsConfig": "physics-config.json",
+    "runtime": null,
+    "physicsRuntime": null,
+    "clipBaker": null,
+    "humanoidHelper": null,
+    "glbRetarget": null,
+    "example": null,
+    "agentInstructions": null
+  },
+  "skeleton": {
+    "boneCount": 24,
+    "breastBones": []
+  },
+  "animation": {
+    "name": "walking in place",
+    "fps": 30,
+    "duration": 3,
+    "frames": 45,
+    "prompt": "running",
+    "format": "THREE.AnimationClip.toJSON"
+  },
+  "usage": {
+    "quickstart": [
+      "import * as THREE from 'three'",
+      "import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'",
+      "import { CharacterController } from './SorceressCharacterRuntime.js'",
+      "import { setupCharacterPhysics } from './CharacterPhysics.js'",
+      "const CHAR_DIR = './characters/male-office-worker_1/'",
+      "const gltf = await new GLTFLoader().loadAsync(CHAR_DIR + 'male-office-worker_1.glb')",
+      "// Load every clip in the character folder (see manifest.files.animations):",
+      "const manifest = await fetch(CHAR_DIR + 'manifest.json').then(r => r.json())",
+      "const clips = {}",
+      "for (const a of manifest.files.animations) clips[a.name] = THREE.AnimationClip.parse(await fetch(CHAR_DIR + a.file).then(r => r.json()))",
+      "const all = Object.values(clips)",
+      "const pick = (kw) => all.find(c => c.name.toLowerCase().includes(kw))",
+      "const physics = await fetch(CHAR_DIR + 'physics-config.json').then(r => r.json())",
+      "const controller = new CharacterController({ root: gltf.scene, clips: { idle: pick('idle') ?? all[0], walk: pick('walk') ?? all[0], run: pick('run') ?? all[0] }, physics })",
+      "// hair + cloth secondary motion (optional — self-hooks into rendering):",
+      "const charPhysics = setupCharacterPhysics(gltf.scene, { hair: physics.hair, cloth: physics.cloth })",
+      "// per frame: controller.update(deltaSeconds, { forward, back, left, right, sprint, jump, cameraForward })"
+    ],
+    "notes": "RUNTIME NOT INCLUDED: this is a CHARACTER + ANIMATIONS bundle for a project that already has the Sorceress runtime files (SorceressCharacterRuntime.js, CharacterPhysics.js, humanoidCharacter.js, …) and AGENT_INSTRUCTIONS.md from a previously downloaded full Three.js Package. Drop this bundle's characters/male-office-worker_1/ folder into the project's existing characters/ folder (next to the other characters) and wire it exactly the same way — the quickstart below and the original AGENT_INSTRUCTIONS.md apply unchanged. This is a COMBINED export: one male-office-worker_1.glb with the body + all accessories on a single skeleton. Assign the clip to any locomotion slots (idle/walk/run/jump) or generate more clips and parse them the same way."
+  }
+}
