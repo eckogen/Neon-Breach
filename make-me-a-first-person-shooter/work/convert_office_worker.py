@@ -1,6 +1,5 @@
 import io
 import json
-import math
 import struct
 from pathlib import Path
 
@@ -10,7 +9,6 @@ from PIL import Image
 ROOT = Path(__file__).parents[1]
 GLB = ROOT / "outputs/assets/male-office-worker/characters/male-office-worker_1/male-office-worker_1.glb"
 OUTPUT = ROOT / "outputs/assets/office-worker-mesh.js"
-QUANTIZE = 0.025
 
 
 def load_glb(path):
@@ -56,43 +54,23 @@ texture = Image.open(io.BytesIO(binary[image_start : image_start + image_view["b
 def texture_color(uv):
     u = uv[0] % 1
     v = uv[1] % 1
-    x = min(texture.width - 1, max(0, round(u * (texture.width - 1))))
-    y = min(texture.height - 1, max(0, round((1 - v) * (texture.height - 1))))
-    return tuple(channel / 255 for channel in texture.getpixel((x, y)))
+    px = u * (texture.width - 1)
+    py = (1 - v) * (texture.height - 1)
+    x0, y0 = int(px), int(py)
+    x1, y1 = min(texture.width - 1, x0 + 1), min(texture.height - 1, y0 + 1)
+    tx, ty = px - x0, py - y0
+    samples = [texture.getpixel((x0, y0)), texture.getpixel((x1, y0)), texture.getpixel((x0, y1)), texture.getpixel((x1, y1))]
+    return tuple(
+        ((samples[0][channel] * (1 - tx) + samples[1][channel] * tx) * (1 - ty)
+         + (samples[2][channel] * (1 - tx) + samples[3][channel] * tx) * ty) / 255
+        for channel in range(3)
+    )
 
 
-clusters = {}
-mapped = []
-for position, normal, uv in zip(positions, normals, uvs):
-    key = tuple(round(value / QUANTIZE) for value in position)
-    if key not in clusters:
-        clusters[key] = {"position": [0, 0, 0], "normal": [0, 0, 0], "color": [0, 0, 0], "count": 0, "index": len(clusters)}
-    cluster = clusters[key]
-    color = texture_color(uv)
-    for axis in range(3):
-        cluster["position"][axis] += position[axis]
-        cluster["normal"][axis] += normal[axis]
-        cluster["color"][axis] += color[axis]
-    cluster["count"] += 1
-    mapped.append(cluster["index"])
-
-vertices = [None] * len(clusters)
-for cluster in clusters.values():
-    count = cluster["count"]
-    position = [value / count for value in cluster["position"]]
-    normal = [value / count for value in cluster["normal"]]
-    magnitude = math.sqrt(sum(value * value for value in normal)) or 1
-    normal = [value / magnitude for value in normal]
-    color = [value / count for value in cluster["color"]]
-    vertices[cluster["index"]] = position + normal + color
-
-triangles = []
-for offset in range(0, len(indices), 3):
-    triangle = [mapped[indices[offset + axis]] for axis in range(3)]
-    if len(set(triangle)) < 3:
-        continue
-    for index in triangle:
-        triangles.extend(vertices[index])
+# Preserve every source vertex and UV seam. The earlier clustered conversion merged
+# vertices that shared a position but belonged to unrelated texture-atlas islands.
+vertices = [list(position) + list(normal) + list(texture_color(uv)) for position, normal, uv in zip(positions, normals, uvs)]
+triangles = [value for index in indices for value in vertices[index]]
 
 
 def number(value):
@@ -108,4 +86,4 @@ OUTPUT.write_text(
     f"const officeNpcMesh=[{payload}];\n",
     encoding="utf-8",
 )
-print(f"Generated {len(triangles) // 27:,} triangles ({OUTPUT.stat().st_size:,} bytes) from {len(indices) // 3:,} source triangles")
+print(f"Generated {len(triangles) // 27:,} UV-preserving triangles ({OUTPUT.stat().st_size:,} bytes)")
