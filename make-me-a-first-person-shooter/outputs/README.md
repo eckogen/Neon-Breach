@@ -144,4 +144,6 @@ The skyline and exterior ground sit 24 meters below the level. All neighboring r
 
 A 128-segment panoramic cylinder surrounds each level behind the 3D skyline, using the supplied skyline-panorama.png texture. The cylinder scales with map dimensions and repeats the texture six times around its circumference. It is visual scenery only.
 
-A second skyline cylinder sits 20 meters inside the outer panorama. It uses skyline-inner.png with source alpha transparency, five texture repetitions, and a staggered seam for layered depth. Both layers render behind the 3D city and game geometry.
+A second skyline cylinder sits 60 meters inside the outer panorama. It uses skyline-inner.png with source alpha transparency, five texture repetitions, and a staggered seam for layered depth. Both layers render behind the 3D city and game geometry.
+
+Skyline cylinder radii use the map half-diagonal plus 85m for the outer layer and 25m for the inner layer.
