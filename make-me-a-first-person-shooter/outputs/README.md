@@ -143,3 +143,5 @@ The city-window background uses three supplied GLB building meshes with their ba
 The skyline and exterior ground sit 24 meters below the level. All neighboring rooftops are below the standing eye line, giving city windows an upper-floor view.
 
 A 128-segment panoramic cylinder surrounds each level behind the 3D skyline, using the supplied skyline-panorama.png texture. The cylinder scales with map dimensions and repeats the texture six times around its circumference. It is visual scenery only.
+
+A second skyline cylinder sits 20 meters inside the outer panorama. It uses skyline-inner.png with source alpha transparency, five texture repetitions, and a staggered seam for layered depth. Both layers render behind the 3D city and game geometry.
