@@ -197,3 +197,5 @@ Both skyline textures are shifted upward 15m using UV offsets while preserving c
 The street plane is reduced to half its previous width and length. A translucent warm-gray haze cylinder sits between the inner and outer skyline layers, fading with height to soften the distant skyline without washing out the nearer layer.
 
 NPC conversations cycle through 32 contextual phrases: 12 casual lines, 8 frightened responses, 6 warnings when shot at, and 6 relieved lines after enemies are cleared. Each character tracks its own sequence per context, preserved when revisiting linked regions.
+
+Enemies tab: Enforcer uses the supplied 9,996-triangle mesh and original 2048px base-color texture at 1.85m tall. It has 120 health, deals 14 damage, and uses tactical pursuit, patrols and glass-flanking logic. The supplied model has no rig or animation, so its source pose is retained during movement. It counts toward objectives/extraction and persists across linked regions.
