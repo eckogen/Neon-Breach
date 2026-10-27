@@ -195,3 +195,5 @@ The 3D skyscrapers are now 25% larger (30–60m tall) with approximately 50% mor
 Both skyline textures are shifted upward 15m using UV offsets while preserving cylinder geometry. The 3D building count is increased by roughly another 50%, retaining current mesh sizes and base heights.
 
 The street plane is reduced to half its previous width and length. A translucent warm-gray haze cylinder sits between the inner and outer skyline layers, fading with height to soften the distant skyline without washing out the nearer layer.
+
+NPC conversations cycle through 32 contextual phrases: 12 casual lines, 8 frightened responses, 6 warnings when shot at, and 6 relieved lines after enemies are cleared. Each character tracks its own sequence per context, preserved when revisiting linked regions.

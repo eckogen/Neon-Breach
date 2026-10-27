@@ -95,6 +95,7 @@ for(let inner of [false,true]){let v=panoramaGeometry(40,40,inner),street=exteri
 check(skylinePlacements().length===2*Math.ceil(Math.max(3,Math.ceil(world[0].length/14))*2.25)+2*Math.ceil(Math.max(3,Math.ceil(world.length/14))*2.25),'More buildings on every side');
 for(let inner of [false,true]){let v=panoramaGeometry(40,40,inner),bottom=v[1],top=v[11],base=v[4],topV=v[14],artY=bottom+(skylineTextureBaseV-base)/(topV-base)*(top-bottom);check(Math.abs(artY-bottom-15)<.001,'Skyline artwork raised 15m on fixed cylinder')}
 {let v=atmosphereGeometry(80,40),r=Math.hypot(v[0]-40,v[2]-20),inner=1.125*(Math.hypot(80,40)/2+25),outer=2*(Math.hypot(80,40)/2+85);check(v.length===128*30&&v.every(Number.isFinite)&&r>inner&&r<outer,'Atmospheric layer sits between skyline cylinders')}
+{let n={};for(let context of Object.keys(npcDialogue)){let seen=new Set();for(let i=0;i<npcDialogue[context].length;i++)seen.add(npcPhrase(n,context));check(seen.size===npcDialogue[context].length,'NPC cycles through every contextual phrase');check(npcPhrase(n,context)===npcDialogue[context][0],'Dialogue wraps correctly')}check(npcPhrase({},'shot').includes("Don't shoot"),'First shot warning remains clear')}console.log('PASS: contextual NPC dialogue cycles and wraps without consecutive repeats');
 console.log('PASS: default map, invalid maps, render, collision, combat, reload, movement, medkit, extraction, death');
 `,sandbox);
 
