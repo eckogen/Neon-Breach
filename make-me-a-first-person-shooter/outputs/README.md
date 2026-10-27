@@ -155,3 +155,5 @@ Skyscraper base-color maps now load directly from the original embedded 4096 × 
 Skyscraper textures preserve glTF UV orientation: uploads explicitly disable UNPACK_FLIP_Y_WEBGL. The panoramic cylinder images retain their separate vertical-flip convention.
 
 Both office-worker NPCs now use their original embedded base-color images at source resolution with unflipped glTF UV uploads. Procedural clothing recoloring has been removed, preserving the source character colors and details.
+
+Both skyline cylinders map the artwork baseline (image row 723/1024) to the cylinder bottom, excluding the empty lower image band.

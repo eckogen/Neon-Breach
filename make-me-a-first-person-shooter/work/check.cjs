@@ -83,8 +83,10 @@ check(skylinePlacements().every(p=>p.height>=24&&p.height<=48),'Skyscraper meshe
 {let outer=panoramaGeometry(80,40),inner=panoramaGeometry(80,40,true);check(inner.length===outer.length&&inner.every(Number.isFinite),'Inner cylinder finite');check(Math.abs(Math.hypot(outer[0]-40,outer[2]-20)-Math.hypot(inner[0]-40,inner[2]-20)-60)<.001,'Inner cylinder sits 60m inside outer');check(inner[3]!==outer[3],'Skyline layers staggered')}console.log('PASS: nested skyline cylinder geometry and layer separation');
 
 {let originalPixelStore=gl.pixelStorei,calls=[];gl.pixelStorei=(key,value)=>calls.push(value);globalThis.Image=class{set src(url){this.onload()}};loadSkylineTexture('test-glb-texture.png');check(calls.includes(false)&&!calls.includes(true),'GLB textures preserve source UV orientation without vertical flip');delete globalThis.Image;gl.pixelStorei=originalPixelStore;console.log('PASS: GLB base-color upload orientation regression')}
+for(let inner of [false,true]){let v=panoramaGeometry(40,40,inner),base=inner?-55:-65;for(let i=0;i<v.length;i+=5)if(v[i+1]===base)check(v[i+4]===1-723/1024,'Skyline art base aligns with cylinder base')}console.log('PASS: both skyline layers anchor artwork base to cylinder bottom');
 console.log('PASS: default map, invalid maps, render, collision, combat, reload, movement, medkit, extraction, death');
 `,sandbox);
+
 
 
 
