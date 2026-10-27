@@ -81,6 +81,8 @@ check(skylineModels.length===3&&skylineGpu.length===3,'All skyline assets loaded
 check(skylinePlacements().every(p=>p.height>=24&&p.height<=48),'Skyscraper meshes use doubled scale');
 {let v=panoramaGeometry(80,40),r=Math.hypot(80,40)/2+85;check(v.length===128*6*5&&v.every(Number.isFinite),'Panorama cylinder geometry');for(let i=0;i<v.length;i+=5)check(Math.abs(Math.hypot(v[i]-40,v[i+2]-20)-r)<.001,'Cylinder surrounds full map');check(v[3]===0&&v.filter((_,i)=>i%5===3).some(u=>u===6),'Panorama UV wraps six times')}console.log('PASS: surrounding skyline cylinder, dimensions and texture UVs');
 {let outer=panoramaGeometry(80,40),inner=panoramaGeometry(80,40,true);check(inner.length===outer.length&&inner.every(Number.isFinite),'Inner cylinder finite');check(Math.abs(Math.hypot(outer[0]-40,outer[2]-20)-Math.hypot(inner[0]-40,inner[2]-20)-60)<.001,'Inner cylinder sits 60m inside outer');check(inner[3]!==outer[3],'Skyline layers staggered')}console.log('PASS: nested skyline cylinder geometry and layer separation');
+
+{let originalPixelStore=gl.pixelStorei,calls=[];gl.pixelStorei=(key,value)=>calls.push(value);globalThis.Image=class{set src(url){this.onload()}};loadSkylineTexture('test-glb-texture.png');check(calls.includes(false)&&!calls.includes(true),'GLB textures preserve source UV orientation without vertical flip');delete globalThis.Image;gl.pixelStorei=originalPixelStore;console.log('PASS: GLB base-color upload orientation regression')}
 console.log('PASS: default map, invalid maps, render, collision, combat, reload, movement, medkit, extraction, death');
 `,sandbox);
 

@@ -151,3 +151,5 @@ Skyline cylinder radii use the map half-diagonal plus 85m for the outer layer an
 The three skyline meshes use twice their original scale in all dimensions (24–48m tall), with bases anchored at -24m. Panorama cylinders retain their current size.
 
 Skyscraper base-color maps now load directly from the original embedded 4096 × 4096 PNGs, extracted byte-for-byte into skyline-basecolor-1.png through skyline-basecolor-3.png. No resizing is applied; UVs, lighting, and fog are unchanged. The three RGBA textures require approximately 192 MiB of GPU memory.
+
+Skyscraper textures preserve glTF UV orientation: uploads explicitly disable UNPACK_FLIP_Y_WEBGL. The panoramic cylinder images retain their separate vertical-flip convention.
