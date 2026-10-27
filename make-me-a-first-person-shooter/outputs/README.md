@@ -173,3 +173,5 @@ The texture baseline samples the center of the last skyline row (722.5/1024), pr
 Streets and building meshes have been lowered by 15m independently of the panorama: street surface -79.99m, building bases -39m. Both cylinder bases remain fixed at -64.99m.
 
 Both skyline cylinder diameters are doubled, keeping their vertical positions and UV alignment. The camera far plane extends to 450m to accommodate the wider background on large maps.
+
+The renderer background uses a vertical gradient sampled from the skyline: gray-brown #676463 overhead to beige haze #AB8F7B below. It renders behind both cylinders and all scene geometry.
