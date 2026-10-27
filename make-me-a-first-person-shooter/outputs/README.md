@@ -167,3 +167,5 @@ NPC poses are grounded from their skinned shoe vertices every frame, including c
 The supplied exterior-streets.png tiles across the horizontal exterior ground at the outer skyline baseline. Each image repeat covers 64 meters, preserving consistent street scale across map sizes. The textured surface sits just above the existing ground to avoid z-fighting.
 
 Both cylinder baselines now meet the current street surface at -64.99m. Skyscraper positions remain at their previous height.
+
+The texture baseline samples the center of the last skyline row (722.5/1024), preventing bilinear filtering from bleeding the empty lower band into the street join. Cylinders and street geometry use a shared exteriorStreetHeight.
