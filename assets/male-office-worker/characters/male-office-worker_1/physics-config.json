@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "type": "sorceress-threejs-physics-config",
+  "enabled": false,
+  "bones": [],
+  "settings": {
+    "amount": 76,
+    "softness": 86,
+    "spring": 85,
+    "weight": 10,
+    "damping": 23,
+    "sway": 6,
+    "stagger": 8,
+    "tolerance": 8,
+    "gravity": 26
+  },
+  "updateOrder": "CharacterController.update() handles this for you. If you wire the physics runtime manually, call mixer.update(delta) first, then physicsRuntime.update(delta).",
+  "hair": {
+    "enabled": false,
+    "settings": {
+      "stiffness": 42,
+      "damping": 55,
+      "gravity": 30,
+      "inertia": 68,
+      "sway": 50
+    }
+  },
+  "cloth": {
+    "enabled": false,
+    "settings": {
+      "stiffness": 68,
+      "damping": 45,
+      "gravity": 55,
+      "flow": 50
+    },
+    "disabledRegions": []
+  }
+}
