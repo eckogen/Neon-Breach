@@ -179,3 +179,5 @@ The renderer background uses a vertical gradient sampled from the skyline: gray-
 The sky gradient is fixed to world elevation, using the viewing ray rather than screen height. Camera pitch, roll and field of view reveal the appropriate sky colors without dragging the gradient with the viewport.
 
 The inner skyline texture baseline meets the current street surface (-79.99m), while its top stays at 45m. The outer skyline cylinder remains at -64.99m and building positions are unchanged.
+
+The inner skyline baseline is raised to -49.99m, reversing the previous downward adjustment. Its top, the outer cylinder, streets and building meshes stay unchanged.
