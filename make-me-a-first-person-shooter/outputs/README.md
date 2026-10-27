@@ -163,3 +163,5 @@ Office workers now wander within roughly five tiles of their spawn, pause betwee
 The exterior ground surface is at -65m, matching the outer skyline cylinder base (the inner cylinder starts at -55m).
 
 NPC poses are grounded from their skinned shoe vertices every frame, including cowering transitions. A vertical offset keeps the lowest foot surface on the floor instead of allowing animation to lift or sink the character.
+
+The supplied exterior-streets.png tiles across the horizontal exterior ground at the outer skyline baseline. Each image repeat covers 64 meters, preserving consistent street scale across map sizes. The textured surface sits just above the existing ground to avoid z-fighting.
