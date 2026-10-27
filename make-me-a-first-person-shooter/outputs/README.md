@@ -199,3 +199,7 @@ The street plane is reduced to half its previous width and length. A translucent
 NPC conversations cycle through 32 contextual phrases: 12 casual lines, 8 frightened responses, 6 warnings when shot at, and 6 relieved lines after enemies are cleared. Each character tracks its own sequence per context, preserved when revisiting linked regions.
 
 Enemies tab: Enforcer uses the supplied 9,996-triangle mesh and original 2048px base-color texture at 1.85m tall. It has 120 health, deals 14 damage, and uses tactical pursuit, patrols and glass-flanking logic. The supplied model has no rig or animation, so its source pose is retained during movement. It counts toward objectives/extraction and persists across linked regions.
+
+The Enforcer now uses the supplied Femme-Admin 43-bone rig. Walking follows actual movement, attacks play the rifle-firing clip, and idle uses a held pose. Grounding samples animated shoe vertices; the running clip is bundled for future speed variants. The original source pose-only limitation no longer applies.
+
+Story and character direction are recorded in [STORY.md](STORY.md), with established plot separated from development options and supplied Miko disassembly/unavailable references included.
