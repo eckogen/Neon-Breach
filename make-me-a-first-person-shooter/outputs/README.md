@@ -183,3 +183,5 @@ The inner skyline texture baseline meets the current street surface (-79.99m), w
 The inner skyline baseline is raised to -49.99m, reversing the previous downward adjustment. Its top, the outer cylinder, streets and building meshes stay unchanged.
 
 The inner skyline baseline is now -34.99m after a further 15m upward adjustment.
+
+The textured street plane spans twice its former width and length, centered on the map. Height and 64m texture repeat scale remain unchanged.

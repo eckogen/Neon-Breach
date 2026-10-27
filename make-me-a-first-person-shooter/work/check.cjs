@@ -91,6 +91,7 @@ for(let rig of npcRigGpu){check(rig.feet.length>0,'Shoe samples exist');for(let 
 {let v=exteriorStreetGeometry(80,40);check(v.length===30&&v.every(Number.isFinite),'Textured street plane finite');for(let i=0;i<v.length;i+=5){check(v[i+1]===exteriorStreetHeight,'Street plane aligns with exterior ground');check(v[i+3]===v[i]/64&&v[i+4]===v[i+2]/64,'Street texture repeats at stable world scale')}}console.log('PASS: textured exterior ground height and world-scale tiling');
 for(let inner of [false,true]){let v=panoramaGeometry(40,40,inner),street=exteriorStreetGeometry(40,40);check(v[1]===(inner?skylineCylinderBase+30:skylineCylinderBase)&&street[1]===exteriorStreetHeight&&v[1]-street[1]===(inner?45:15)&&v[4]===1-722.5/1024,'Cylinder remains fixed above lowered street')}
 {player.pitch=0;weaponMotion.pitchKick=0;cameraMotion.roll=0;let levelBasis=skyGradientBasis(cameraMatrix(),perspective(1));player.pitch=.5;let upBasis=skyGradientBasis(cameraMatrix(),perspective(1));check(Math.abs(levelBasis.forward[1])<.001&&upBasis.forward[1]>.4,'Sky gradient follows world elevation when camera pitches');player.pitch=0}console.log('PASS: world-anchored vertical sky gradient');
+{let v=exteriorStreetGeometry(80,40);check(v[10]-v[0]===2*(80+300)&&v[7]-v[2]===2*(40+300),'Street plane dimensions doubled around map center')}
 console.log('PASS: default map, invalid maps, render, collision, combat, reload, movement, medkit, extraction, death');
 `,sandbox);
 
