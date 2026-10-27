@@ -187,3 +187,5 @@ The inner skyline baseline is now -34.99m after a further 15m upward adjustment.
 The textured street plane spans twice its former width and length, centered on the map. Height and 64m texture repeat scale remain unchanged.
 
 Reverted the cylinder/street overlap treatment. The inner skyline now repeats ten times instead of five, with 25% less diameter and a lowered top at 25m to reduce texture height while preserving its baseline. The outer skyline remains unchanged.
+
+The inner cylinder diameter is reduced by a further 25% from its previous size (56.25% of its former doubled diameter), with height and texture repeats preserved.
