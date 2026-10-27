@@ -193,3 +193,5 @@ The inner cylinder diameter is reduced by a further 25% from its previous size (
 The 3D skyscrapers are now 25% larger (30–60m tall) with approximately 50% more instances around the map. Three staggered distance bands keep the enlarged meshes outside the level. Building bases remain at -39m.
 
 Both skyline textures are shifted upward 15m using UV offsets while preserving cylinder geometry. The 3D building count is increased by roughly another 50%, retaining current mesh sizes and base heights.
+
+The street plane is reduced to half its previous width and length. A translucent warm-gray haze cylinder sits between the inner and outer skyline layers, fading with height to soften the distant skyline without washing out the nearer layer.
