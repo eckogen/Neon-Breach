@@ -165,3 +165,5 @@ The exterior ground surface is at -65m, matching the outer skyline cylinder base
 NPC poses are grounded from their skinned shoe vertices every frame, including cowering transitions. A vertical offset keeps the lowest foot surface on the floor instead of allowing animation to lift or sink the character.
 
 The supplied exterior-streets.png tiles across the horizontal exterior ground at the outer skyline baseline. Each image repeat covers 64 meters, preserving consistent street scale across map sizes. The textured surface sits just above the existing ground to avoid z-fighting.
+
+All exterior layers share the outer skyline baseline at -65m: inner and outer cylinder artwork, 3D skyscraper bases, and the street ground surface. The supporting ground slab sits 1cm below the textured surface to prevent z-fighting.
