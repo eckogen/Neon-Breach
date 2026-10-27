@@ -175,3 +175,5 @@ Streets and building meshes have been lowered by 15m independently of the panora
 Both skyline cylinder diameters are doubled, keeping their vertical positions and UV alignment. The camera far plane extends to 450m to accommodate the wider background on large maps.
 
 The renderer background uses a vertical gradient sampled from the skyline: gray-brown #676463 overhead to beige haze #AB8F7B below. It renders behind both cylinders and all scene geometry.
+
+The sky gradient is fixed to world elevation, using the viewing ray rather than screen height. Camera pitch, roll and field of view reveal the appropriate sky colors without dragging the gradient with the viewport.
