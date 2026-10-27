@@ -177,3 +177,5 @@ Both skyline cylinder diameters are doubled, keeping their vertical positions an
 The renderer background uses a vertical gradient sampled from the skyline: gray-brown #676463 overhead to beige haze #AB8F7B below. It renders behind both cylinders and all scene geometry.
 
 The sky gradient is fixed to world elevation, using the viewing ray rather than screen height. Camera pitch, roll and field of view reveal the appropriate sky colors without dragging the gradient with the viewport.
+
+The inner skyline texture baseline meets the current street surface (-79.99m), while its top stays at 45m. The outer skyline cylinder remains at -64.99m and building positions are unchanged.
