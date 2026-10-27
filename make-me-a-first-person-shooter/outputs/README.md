@@ -139,3 +139,5 @@ Objective switches and sabotage targets can use any current prop mesh: Voxel cha
 Glass tab: yellow Reinforced panes have 120 health (four rifle hits), orange Ballistic panes have 300 (ten rifle hits), and gray Titan panes cannot be destroyed. All come in two orientations. These upgraded panes resist sprinting; only ordinary glass can be rammed through. Intact panes block bullets and drones flank around them. Titan panes are permanent barriers in map/world route validation.
 
 The city-window background uses three supplied GLB building meshes with their base-color textures. Browser-ready geometry and 512px textures are bundled in assets/skyline-meshes.js; mesh buffers are uploaded once and reused around all four sides of each map. Source node orientation is preserved and building heights vary across the skyline.
+
+The skyline and exterior ground sit 24 meters below the level. All neighboring rooftops are below the standing eye line, giving city windows an upper-floor view.
