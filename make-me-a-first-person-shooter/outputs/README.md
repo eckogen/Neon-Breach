@@ -140,10 +140,12 @@ Glass tab: yellow Reinforced panes have 120 health (four rifle hits), orange Bal
 
 The city-window background uses three supplied GLB building meshes with their base-color textures. Browser-ready geometry and 512px textures are bundled in assets/skyline-meshes.js; mesh buffers are uploaded once and reused around all four sides of each map. Source node orientation is preserved and building heights vary across the skyline.
 
-The skyline and exterior ground sit 24 meters below the level. All neighboring rooftops are below the standing eye line, giving city windows an upper-floor view.
+The skyline and exterior ground sit 24 meters below the level. The exterior remains below the level; doubled skyscrapers can extend above the standing eye line.
 
 A 128-segment panoramic cylinder surrounds each level behind the 3D skyline, using the supplied skyline-panorama.png texture. The cylinder scales with map dimensions and repeats the texture six times around its circumference. It is visual scenery only.
 
 A second skyline cylinder sits 60 meters inside the outer panorama. It uses skyline-inner.png with source alpha transparency, five texture repetitions, and a staggered seam for layered depth. Both layers render behind the 3D city and game geometry.
 
 Skyline cylinder radii use the map half-diagonal plus 85m for the outer layer and 25m for the inner layer.
+
+The three skyline meshes use twice their original scale in all dimensions (24–48m tall), with bases anchored at -24m. Panorama cylinders retain their current size.
