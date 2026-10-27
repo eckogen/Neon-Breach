@@ -161,3 +161,5 @@ Both skyline cylinders map the artwork baseline (image row 723/1024) to the cyli
 Office workers now wander within roughly five tiles of their spawn, pause between destinations, and face their direction of travel. Both source skeletons use the supplied walking-in-place and cowering clips with GPU skinning and brief pose transitions. NPCs avoid walls, glass, props, one another and the player; nearby gunfire makes them cower before resuming. E conversations pause their movement. Model choice stays fixed while moving, and region travel preserves NPC positions and behavior state.
 
 The exterior ground surface is at -65m, matching the outer skyline cylinder base (the inner cylinder starts at -55m).
+
+NPC poses are grounded from their skinned shoe vertices every frame, including cowering transitions. A vertical offset keeps the lowest foot surface on the floor instead of allowing animation to lift or sink the character.
