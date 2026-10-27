@@ -157,3 +157,5 @@ Skyscraper textures preserve glTF UV orientation: uploads explicitly disable UNP
 Both office-worker NPCs now use their original embedded base-color images at source resolution with unflipped glTF UV uploads. Procedural clothing recoloring has been removed, preserving the source character colors and details.
 
 Both skyline cylinders map the artwork baseline (image row 723/1024) to the cylinder bottom, excluding the empty lower image band.
+
+Office workers now wander within roughly five tiles of their spawn, pause between destinations, and face their direction of travel. Both source skeletons use the supplied walking-in-place and cowering clips with GPU skinning and brief pose transitions. NPCs avoid walls, glass, props, one another and the player; nearby gunfire makes them cower before resuming. E conversations pause their movement. Model choice stays fixed while moving, and region travel preserves NPC positions and behavior state.
