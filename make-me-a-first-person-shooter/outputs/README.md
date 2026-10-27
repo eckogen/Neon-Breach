@@ -189,3 +189,5 @@ The textured street plane spans twice its former width and length, centered on t
 Reverted the cylinder/street overlap treatment. The inner skyline now repeats ten times instead of five, with 25% less diameter and a lowered top at 25m to reduce texture height while preserving its baseline. The outer skyline remains unchanged.
 
 The inner cylinder diameter is reduced by a further 25% from its previous size (56.25% of its former doubled diameter), with height and texture repeats preserved.
+
+The 3D skyscrapers are now 25% larger (30–60m tall) with approximately 50% more instances around the map. Three staggered distance bands keep the enlarged meshes outside the level. Building bases remain at -39m.
