@@ -153,3 +153,5 @@ The three skyline meshes use twice their original scale in all dimensions (24–
 Skyscraper base-color maps now load directly from the original embedded 4096 × 4096 PNGs, extracted byte-for-byte into skyline-basecolor-1.png through skyline-basecolor-3.png. No resizing is applied; UVs, lighting, and fog are unchanged. The three RGBA textures require approximately 192 MiB of GPU memory.
 
 Skyscraper textures preserve glTF UV orientation: uploads explicitly disable UNPACK_FLIP_Y_WEBGL. The panoramic cylinder images retain their separate vertical-flip convention.
+
+Both office-worker NPCs now use their original embedded base-color images at source resolution with unflipped glTF UV uploads. Procedural clothing recoloring has been removed, preserving the source character colors and details.
