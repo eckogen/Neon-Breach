@@ -203,3 +203,5 @@ Enemies tab: Enforcer uses the supplied 9,996-triangle mesh and original 2048px 
 The Enforcer now uses the supplied Femme-Admin 43-bone rig. Walking follows actual movement, attacks play the rifle-firing clip, and idle uses a held pose. Grounding samples animated shoe vertices; the running clip is bundled for future speed variants. The original source pose-only limitation no longer applies.
 
 Story and character direction are recorded in [STORY.md](STORY.md), with established plot separated from development options and supplied Miko disassembly/unavailable references included.
+
+The Enforcer model is reduced to 60% of its previous size (1.11m tall), with matching shot bounds and firing height. Its facing is rotated 180 degrees from the original integration.
