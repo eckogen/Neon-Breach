@@ -185,3 +185,5 @@ The inner skyline baseline is raised to -49.99m, reversing the previous downward
 The inner skyline baseline is now -34.99m after a further 15m upward adjustment.
 
 The textured street plane spans twice its former width and length, centered on the map. Height and 64m texture repeat scale remain unchanged.
+
+Both skyline cylinder skirts extend 2m below the street plane. Their UV mapping preserves the current artwork height and extends its bottom color down to the join. Cylinders now participate in depth testing, so streets outside them cannot paint over the skyline; transparent inner-sky regions reveal the outer layer.
