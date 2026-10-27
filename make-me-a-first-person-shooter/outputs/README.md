@@ -169,3 +169,5 @@ The supplied exterior-streets.png tiles across the horizontal exterior ground at
 Both cylinder baselines now meet the current street surface at -64.99m. Skyscraper positions remain at their previous height.
 
 The texture baseline samples the center of the last skyline row (722.5/1024), preventing bilinear filtering from bleeding the empty lower band into the street join. Cylinders and street geometry use a shared exteriorStreetHeight.
+
+Streets and building meshes have been lowered by 15m independently of the panorama: street surface -79.99m, building bases -39m. Both cylinder bases remain fixed at -64.99m.
