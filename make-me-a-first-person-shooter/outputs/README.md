@@ -205,3 +205,7 @@ The Enforcer now uses the supplied Femme-Admin 43-bone rig. Walking follows actu
 Story and character direction are recorded in [STORY.md](STORY.md), with established plot separated from development options and supplied Miko disassembly/unavailable references included.
 
 The Enforcer model is reduced to 60% of its previous size (1.11m tall), with matching shot bounds and firing height. Its facing is rotated 180 degrees from the original integration.
+
+## Outdoor walkways
+
+Choose Outdoor walkway in the Structure tab to paint open-air concrete paths and terraces. Walkway tiles have no ceiling and overlook the exterior skyline. They can replace boundary walls to open an exterior walkway; railings mark the map edge, which remains impassable. Connect them to ordinary floor or doors for access. They are preserved in map saves, JSON exports, and World Lab snapshots. Painting another object over a walkway replaces that tile.
