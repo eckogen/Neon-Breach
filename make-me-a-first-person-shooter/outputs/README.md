@@ -211,3 +211,7 @@ The Enforcer model is reduced to 60% of its previous size (1.11m tall), with mat
 Choose Outdoor walkway in the Structure tab to paint open-air concrete paths and terraces. Walkway tiles have no ceiling and overlook the exterior skyline. They can replace boundary walls to open an exterior walkway; railings mark the map edge, which remains impassable. Connect them to ordinary floor or doors for access. They are preserved in map saves, JSON exports, and World Lab snapshots. Painting another object over a walkway replaces that tile.
 
 The Enforcer now uses the replacement Enforcer.zip character package, including its textured model, rig and profile-selected idle, walking and running clips, plus rifle firing. Its existing size, hit bounds and combat behavior are retained. The original bundle is preserved as assets/enforcer-source.zip; work/convert_enforcer.py regenerates the WebGL assets (requires NumPy, SciPy and Pillow).
+
+## Pitfalls
+
+Choose Pitfall (no floor) under Structure to remove a floor tile. Stepping into a hole makes you fall and ends the run; narrow holes can be jumped across. Pitfalls retain the indoor ceiling, block safe ground routes for NPCs and mission validation, and persist in map JSON and World Lab snapshots. Boundary cells still require walls or outdoor walkway tiles. Paint Floor or Outdoor walkway to fill a hole.
